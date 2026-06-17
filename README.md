@@ -113,15 +113,22 @@ set WIN_ER_MOCK=1
 python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-## 🖼️ 界面截图
+## 🖼️ 界面特性
 
-| 仪表盘 | 一键扫描 |
-|--------|----------|
-| ![Dashboard](docs/screenshots/dashboard.png) | ![Scan](docs/screenshots/scan.png) |
-| **发现项详情** | **HTML 报告** |
-| ![Findings](docs/screenshots/findings.png) | ![Report](docs/screenshots/report.png) |
+| 功能 | 说明 | 预览 |
+|------|------|------|
+| 📊 **仪表盘** | 主机信息、风险统计、发现项分布图表 | 风险卡片 + ECharts 饼图/柱状图 |
+| 🚀 **一键扫描** | 模块勾选、进度条、实时结果展示 | 雷达动画 + 扫描进度 + 模块状态 |
+| 🔥 **发现项详情** | 按严重程度分类、证据展示、一键处置 | 可折叠卡片 + 处置按钮 + 证据代码块 |
+| 📋 **HTML 报告** | 完整导出、打印友好、包含所有证据 | 单文件 HTML + 风险汇总表 |
 
-> 提示：截图请放在 `docs/screenshots/` 目录下
+💡 **主题切换**：支持 4 种内置主题
+- 🌙 深色主题（默认）
+- ☀️ 浅色主题
+- 🟪 赛博朋克
+- 🎑 柔和护眼
+
+> 欢迎提交你的界面截图到 PR！
 
 ## ❓ 常见问题
 
