@@ -1,18 +1,7 @@
 # 赞助配置
 # 配置后你的仓库主页会显示 ❤️ Sponsor 按钮
 
-github: [你的GitHub用户名]  # 例如: [octocat]
-patreon: 你的Patreon用户名      # 可选
-open_collective: 项目名称        # 可选: Open Collective
-ko_fi: 你的Kofi用户名            # 可选: Ko-fi
-tidelift: npm/package-name      # 可选: Tidelift
-custom:                          # 自定义链接
-  - https://你的支付宝/微信收款码链接
-  - https://afdian.net/a/你的爱发电用户名
-  - https://buymeacoffee.com/你的用户名
-
-# 国内常用方式：
-# - 爱发电 (afdian.net)
-# - 微信赞赏码
-# - 支付宝收款码
-# - Buy Me a Coffee (国际)
+github: [C-8H11N]
+custom:
+  - https://ifdian.net/a/C-8H11N
+  - https://github.com/sponsors/C-8H11N
