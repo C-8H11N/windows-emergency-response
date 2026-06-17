@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body { margin: 0; min-width: 1024px; background: #020617; color: #e2e8f0; font-family: 'Inter', 'Microsoft YaHei', system-ui, sans-serif; }
+.radar { position: relative; overflow: hidden; }
+.radar::after { content: ''; position: absolute; inset: -60%; background: conic-gradient(from 0deg, transparent, rgba(34,211,238,.28), transparent 35%); animation: spin 2s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.card { @apply rounded-2xl p-4 shadow-xl transition-all duration-200; }
+.btn { @apply rounded-xl px-4 py-2 font-semibold transition hover:-translate-y-0.5 hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-50; }

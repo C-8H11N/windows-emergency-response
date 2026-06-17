@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[oc]
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.venv/
+env/
+
+# PyInstaller
+*.spec.bak
+
+# Node
+node_modules/
+frontend/dist/
+
+# 可选：如果希望仓库中不包含构建好的静态文件，取消注释以下两行
+# 否则保留静态文件，方便用户 clone 后直接运行
+# backend/app/static/assets/
+# backend/app/static/index.html
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+.DS_Store

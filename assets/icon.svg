@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- 背景 -->
+  <rect width="256" height="256" rx="48" fill="#0f172a"/>
+
+  <!-- 盾牌外圈 -->
+  <circle cx="128" cy="120" r="72" fill="none" stroke="#22d3ee" stroke-width="4"/>
+  <circle cx="128" cy="120" r="60" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.5"/>
+
+  <!-- 盾牌形状 -->
+  <path d="M128 56 L128 56 L176 76 L176 128 C176 160 152 184 128 192 C104 184 80 160 80 128 L80 76 Z"
+        fill="#0f172a" stroke="#22d3ee" stroke-width="3"/>
+
+  <!-- 十字瞄准线 -->
+  <line x1="128" y1="88" x2="128" y2="152" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="96" y1="120" x2="160" y2="120" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- 中心点 -->
+  <circle cx="128" cy="120" r="8" fill="#22d3ee"/>
+
+  <!-- 雷达扫描线 -->
+  <g opacity="0.6">
+    <line x1="128" y1="120" x2="170" y2="95" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" from="0 128 120" to="360 128 120" dur="3s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- 装饰点 -->
+  <circle cx="128" cy="56" r="4" fill="#22d3ee"/>
+  <circle cx="188" cy="120" r="4" fill="#22d3ee"/>
+  <circle cx="68" cy="120" r="4" fill="#22d3ee"/>
+</svg>

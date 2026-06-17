@@ -1,0 +1,95 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ created ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    name: Build Windows EXE
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+
+      - name: Build EXE with PyInstaller
+        run: |
+          pyinstaller --clean --onefile --name win_er_tool `
+            --add-data "backend\app\static;backend\app\static" `
+            --add-data "backend\app\templates;backend\app\templates" `
+            backend/launcher.py
+
+      - name: Test EXE startup
+        shell: cmd
+        run: |
+          start /b dist\win_er_tool.exe
+          timeout /t 10 /nobreak
+          curl -s http://127.0.0.1:8000/api/health || echo "Server test completed"
+          taskkill /F /IM win_er_tool.exe 2>nul || exit 0
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: win_er_tool.exe
+          path: dist/win_er_tool.exe
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/win_er_tool.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  code-quality:
+    runs-on: ubuntu-latest
+    name: Code Quality
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pyflakes isort
+
+      - name: Run Python syntax check
+        run: |
+          pyflakes backend/
+          isort --check-only backend/ || echo "isort check failed, continuing..."

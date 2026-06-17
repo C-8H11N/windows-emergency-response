@@ -1,0 +1,6 @@
+export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info'
+export interface Finding { id: string; module: string; title: string; severity: Severity; summary: string; evidence: string[]; recommendation: string; tags: string[]; confidence: number; requires_admin: boolean; data: Record<string, unknown> }
+export interface ModuleResult { module: string; display_name: string; status: 'pending'|'running'|'done'|'error'|'unsupported'; findings: Finding[]; errors: string[]; duration_ms?: number; summary: string; data: Record<string, unknown> }
+export interface ScanStatus { scan_id: string; status: 'idle'|'running'|'done'|'error'|'cancelled'; progress: number; current_module?: string | null; started_at?: string | null; finished_at?: string | null; modules: ModuleResult[]; findings: Finding[] }
+export interface Health { ok: boolean; app: string; version: string; platform: string; is_windows: boolean; is_admin: boolean; hostname: string; ips: string[]; os_version: string; threat_intel: { enabled: boolean; mode: string; api_key_configured: boolean; external_allowed: boolean } }
+export interface GuideCategory { id: string; title: string; icon: string; description: string; modules: string[]; steps: string[] }
