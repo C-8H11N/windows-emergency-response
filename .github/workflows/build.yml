@@ -59,7 +59,7 @@ jobs:
           taskkill /F /IM win_er_tool.exe 2>nul || exit 0
 
       - name: Upload EXE artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: win_er_tool.exe
           path: dist/win_er_tool.exe
