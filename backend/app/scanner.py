@@ -3,7 +3,7 @@ from __future__ import annotations
 import threading
 import time
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Callable
 
 from backend.app.models import Finding, ModuleResult, ScanStatus
@@ -40,7 +40,7 @@ class ScannerService:
             self._cancel.clear()
             self._status = ScanStatus(
                 scan_id=str(uuid.uuid4()), status="running", progress=0,
-                started_at=datetime.utcnow(), modules=[ModuleResult(module=m, display_name=MODULES[m][0]) for m in module_ids], findings=[])
+                started_at=datetime.now(timezone.utc), modules=[ModuleResult(module=m, display_name=MODULES[m][0]) for m in module_ids], findings=[])
             self._thread = threading.Thread(target=self._run, args=(module_ids,), daemon=True)
             self._thread.start()
             return self._status
@@ -50,7 +50,7 @@ class ScannerService:
         with self._lock:
             if self._status.status == "running":
                 self._status.status = "cancelled"
-                self._status.finished_at = datetime.utcnow()
+                self._status.finished_at = datetime.now(timezone.utc)
         return self.status()
 
     def status(self) -> ScanStatus:
@@ -86,7 +86,7 @@ class ScannerService:
                 self._status.status = "done"
             self._status.current_module = None
             self._status.progress = 100 if self._status.status == "done" else self._status.progress
-            self._status.finished_at = datetime.utcnow()
+            self._status.finished_at = datetime.now(timezone.utc)
 
 
 scanner = ScannerService()

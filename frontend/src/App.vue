@@ -169,7 +169,7 @@ async function selectGuide(modules: string[]){ selectedModules.value = modules; 
 async function setIntel(mode: string, confirm = false){ await api.setIntel(mode, confirm); await refreshHealth() }
 async function killPid(pid: number){ const reason = prompt(`确认终止 PID ${pid}？建议先导出报告保全证据。输入原因：`, '用户确认处置可疑进程'); if (reason !== null) alert(JSON.stringify(await api.killProcess(pid, reason))) }
 
-onMounted(async () => { await refreshHealth(); guide.value = (await api.guide()).categories; await poll() })
+onMounted(async () => { await api.initSession(); await refreshHealth(); guide.value = (await api.guide()).categories; await poll() })
 
 const ModuleList = defineComponent({ props:{ modules:{type:Array<ModuleResult>, required:true}, theme:{type:String}}, setup(props){
   const isLight = computed(() => props.theme === 'light'); const isCyber = computed(() => props.theme === 'cyber'); const isMuted = computed(() => props.theme === 'muted')

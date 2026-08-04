@@ -43,6 +43,9 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    if args.host not in {"127.0.0.1", "localhost", "::1"}:
+        parser.error("出于安全考虑，仅允许监听本机回环地址")
+
     log_level = "info" if args.verbose else "warning"
 
     print_banner()

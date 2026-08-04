@@ -87,7 +87,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 pyflakes isort
+          pip install -r requirements.txt pytest flake8 pyflakes isort
+
+      - name: Run backend tests
+        run: pytest -q
 
       - name: Run Python syntax check
         run: |

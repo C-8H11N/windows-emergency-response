@@ -17,9 +17,11 @@ from backend.app.modules.threat_intel import get_config, update_config
 from backend.app.report import render_report
 from backend.app.scanner import scanner
 from backend.app.security import kill_process
+from backend.app.session_security import LocalSessionMiddleware
 from backend.app.utils.platform import hostname, ip_addresses, is_admin, is_windows, os_version
 
 app = FastAPI(title=config.APP_NAME, version=config.APP_VERSION)
+app.add_middleware(LocalSessionMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -113,7 +115,7 @@ def open_file_location(req: OpenFileRequest) -> dict:
     if not os.path.exists(path):
         return {"ok": False, "error": f"路径不存在: {path}"}
     try:
-        subprocess.Popen(['explorer', '/select,', path], shell=True)
+        subprocess.Popen(['explorer.exe', '/select,', path], shell=False)
         return {"ok": True, "path": path}
     except Exception as e:
         return {"ok": False, "error": str(e)}

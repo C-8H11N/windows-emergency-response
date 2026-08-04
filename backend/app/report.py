@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import datetime
 
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader
 
 from backend.app import config
 from backend.app.models import ScanStatus
@@ -12,7 +12,7 @@ from backend.app.utils.platform import hostname, ip_addresses, is_admin, os_vers
 
 
 def render_report(status: ScanStatus) -> str:
-    env = Environment(loader=FileSystemLoader(config.TEMPLATES_DIR), autoescape=select_autoescape())
+    env = Environment(loader=FileSystemLoader(config.TEMPLATES_DIR), autoescape=True)
     template = env.get_template("report.html.j2")
     severity_counts = Counter(f.severity.value for f in status.findings)
     return template.render(

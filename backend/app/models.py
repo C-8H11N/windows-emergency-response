@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Literal
 
@@ -15,6 +15,15 @@ class Severity(str, Enum):
     info = "info"
 
 
+class EvidenceMetadata(BaseModel):
+    collector: str = ""
+    collected_at: datetime = Field(default_factory=lambda: datetime.now().astimezone())
+    command: list[str] = Field(default_factory=list)
+    exit_code: int | None = None
+    truncated: bool = False
+    sha256: str = ""
+
+
 class Finding(BaseModel):
     id: str
     module: str
@@ -22,9 +31,10 @@ class Finding(BaseModel):
     severity: Severity = Severity.info
     summary: str
     evidence: list[str] = Field(default_factory=list)
+    evidence_metadata: list[EvidenceMetadata] = Field(default_factory=list)
     recommendation: str = "请结合业务环境确认。"
     tags: list[str] = Field(default_factory=list)
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     requires_admin: bool = False
     confidence: float = Field(default=0.5, ge=0, le=1)
     data: dict[str, Any] = Field(default_factory=dict)

@@ -7,6 +7,7 @@ async function json<T>(url: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  initSession: () => json<{ ok: boolean }>('/api/session'),
   health: () => json<Health>('/api/health'),
   guide: () => json<{ categories: GuideCategory[]; safe_notice: string }>('/api/guide'),
   startScan: (modules?: string[]) => json<ScanStatus>('/api/scan/start', { method: 'POST', body: JSON.stringify({ modules }) }),

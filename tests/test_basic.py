@@ -23,10 +23,18 @@ def test_threat_intel_default():
 
 def test_subprocess_wrapper():
     """测试命令执行包装器"""
+    import sys
     from backend.app.utils.subprocesses import run_command, CommandResult
-    result = run_command(["echo", "test"], timeout=5)
+    result = run_command([sys.executable, "-c", "print('test')"], timeout=5)
     assert isinstance(result, CommandResult)
     assert result.returncode == 0
+    assert "test" in result.stdout
+
+
+def test_evidence_metadata():
+    from backend.app.models import EvidenceMetadata
+    metadata = EvidenceMetadata(collector="unit-test", sha256="a" * 64)
+    assert metadata.collector == "unit-test"
 
 
 if __name__ == "__main__":
