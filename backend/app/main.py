@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.app import config
+from backend.app.case_bundle import build_case_bundle
 from pydantic import BaseModel
 from backend.app.models import HealthResponse, KillProcessRequest, KillProcessResponse, ScanStartRequest, ScanStatus, ThreatIntelUpdate
 from backend.app.modules.attack_guide import get_guide
@@ -129,6 +130,20 @@ def report_html() -> Response:
         html,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+@app.get("/api/case/export")
+def export_case_bundle() -> Response:
+    status = scanner.status()
+    bundle = build_case_bundle(
+        status,
+        app_name=config.APP_NAME,
+        app_version=config.APP_VERSION,
+        host={"hostname": hostname(), "ips": ip_addresses(), "os_version": os_version(), "is_admin": is_admin()},
+        report_html=render_report(status),
+    )
+    filename = f"win-er-case-{datetime.now():%Y%m%d-%H%M%S}.zip"
+    return Response(bundle, media_type="application/zip", headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
 if config.STATIC_DIR.exists() and (config.STATIC_DIR / "index.html").exists():

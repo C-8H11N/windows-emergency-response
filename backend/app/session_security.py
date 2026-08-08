@@ -9,7 +9,7 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 
 COOKIE_NAME = "win_er_session"
 LOCAL_HOSTS = {"127.0.0.1", "localhost", "::1"}
-PROTECTED_GET_PATHS = {"/api/report/html"}
+PROTECTED_GET_PATHS = {"/api/report/html", "/api/case/export"}
 
 
 class LocalSessionMiddleware(BaseHTTPMiddleware):

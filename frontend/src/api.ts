@@ -16,5 +16,6 @@ export const api = {
   setIntel: (mode: string, confirm_external = false) => json('/api/threat-intel/config', { method: 'POST', body: JSON.stringify({ mode, confirm_external }) }),
   killProcess: (pid: number, reason: string) => json('/api/processes/kill', { method: 'POST', body: JSON.stringify({ pid, confirm: true, reason }) }),
   openFileLocation: (path: string) => json('/api/files/open-location', { method: 'POST', body: JSON.stringify({ path }) }),
-  downloadReport: () => { window.location.href = '/api/report/html' }
+  downloadReport: () => { window.location.href = '/api/report/html' },
+  downloadCase: () => { window.location.href = '/api/case/export' }
 }

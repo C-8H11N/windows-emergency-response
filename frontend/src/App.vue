@@ -54,6 +54,7 @@
               <button class="btn bg-cyan-400 text-slate-950" :disabled="scan.status==='running'" @click="startScan">开始应急排查</button>
               <button class="btn" :class="theme === 'light' ? 'bg-slate-200' : 'bg-slate-700'" :disabled="scan.status!=='running'" @click="cancelScan">停止扫描</button>
               <button class="btn bg-emerald-500 text-slate-950" @click="api.downloadReport()">导出 HTML 报告</button>
+              <button class="btn bg-violet-500 text-white" @click="api.downloadCase()">导出案件 ZIP</button>
             </div>
             <div class="mt-6 h-3 rounded-full" :class="theme === 'light' ? 'bg-slate-200' : 'bg-slate-800'"><div class="h-3 rounded-full bg-cyan-400 transition-all" :style="{width: scan.progress + '%'}"></div></div>
             <div class="mt-2 text-sm" :class="themeTextSub">{{ scan.status }} · {{ scan.progress }}% · 当前模块 {{ scan.current_module || '-' }}</div>
